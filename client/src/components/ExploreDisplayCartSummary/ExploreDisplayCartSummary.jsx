@@ -185,6 +185,9 @@ const ExploreDisplayCartSummary = ({
 		}
 	};
 
+	console.log(orderDetails);
+	console.log(processingMethod);
+
 	return (
 		<div className="mt-2">
 			<div className="cart-summary-details">
@@ -205,7 +208,7 @@ const ExploreDisplayCartSummary = ({
 				<button
 					className="btn btn-success flex-grow-1"
 					onClick={() => completePayment("CASH")}
-					disabled={cartItems.length === 0}
+					disabled={cartItems.length === 0 || orderDetails !== null}
 				>
 					{processingMethod === "CASH" ? "Processing.." : "Cash"}
 				</button>
@@ -213,7 +216,7 @@ const ExploreDisplayCartSummary = ({
 				<button
 					className="btn btn-primary flex-grow-1"
 					onClick={() => completePayment("UPI")}
-					disabled={cartItems.length === 0}
+					disabled={cartItems.length === 0 || orderDetails !== null}
 				>
 					{processingMethod === "UPI" ? "Processing.." : "UPI"}
 				</button>
@@ -222,7 +225,7 @@ const ExploreDisplayCartSummary = ({
 				<button
 					className="btn btn-warning flex-grow-1"
 					onClick={placeOrder}
-					disabled={processingMethod === null || orderDetails === null}
+					disabled={orderDetails === null}
 				>
 					Place Order
 				</button>

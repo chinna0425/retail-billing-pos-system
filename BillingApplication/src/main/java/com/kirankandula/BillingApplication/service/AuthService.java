@@ -81,6 +81,7 @@ public class AuthService {
         AuthResponse response=new AuthResponse();
         response.setToken(token);
         response.setRole(userEntity.getRole().name());
+        response.setUserId(userEntity.getUserId());
         return response;
     }
 

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ContextApi } from "../../ContextApi/ContextApi.jsx";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -30,15 +31,32 @@ const Login = () => {
 			showError("Please fill the password field");
 			return;
 		}
+		if (!data.email.endsWith("@gmail.com")) {
+			showError("Fill with correct email id");
+			return;
+		}
 		setLoading(true);
 		try {
 			const response = await loginUser(data);
 			if (response.status === 200) {
 				toast.success("Login successful!");
-				localStorage.setItem("token", response.data.token);
-				localStorage.setItem("role", response.data.role);
+
+				Cookies.set("token", response.data.token, {
+					expires: 1 / 24, // 1 hour = 0.0416 days
+				});
+				Cookies.set("role", response.data.role, {
+					expires: 1 / 24, // 1 hour = 0.0416 days
+				});
+				Cookies.set("loggedUserId", response.data.userId, {
+					expires: 1 / 24, // 1 hour = 0.0416 days
+				});
+
 				// Redirect to dashboard or another page
-				setAuthData(response.data.token, response.data.role);
+				setAuthData(
+					response.data.token,
+					response.data.role,
+					response.data.userId,
+				);
 				setData({ email: "", password: "" });
 				navigate("/dashboard");
 			}

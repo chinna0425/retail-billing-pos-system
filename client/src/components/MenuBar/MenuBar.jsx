@@ -3,14 +3,16 @@ import assets from "../../assets/assets";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ContextApi } from "../../ContextApi/ContextApi";
+import Cookies from "js-cookie";
 const MenuBar = () => {
 	const { setAuthData, authenticated } = useContext(ContextApi);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const logout = () => {
-		localStorage.removeItem("token");
-		localStorage.removeItem("role");
-		setAuthData(null, null);
+		Cookies.remove("token");
+		Cookies.remove("role");
+		Cookies.remove("loggedUserId");
+		setAuthData(null, null, null);
 		navigate("/login");
 	};
 

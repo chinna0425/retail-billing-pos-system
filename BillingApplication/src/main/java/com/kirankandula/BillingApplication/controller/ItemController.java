@@ -23,6 +23,7 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemService.addItem(request, image));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/items/all-items")
     public ResponseEntity<?> getAllItems(){
         return ResponseEntity.status(HttpStatus.OK).body(itemService.getAllItems());

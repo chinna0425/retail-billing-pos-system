@@ -1,15 +1,19 @@
 import { createContext, useEffect, useState } from "react";
 import { getAllCategories } from "../ApiServices/CategoryService.js";
 import { getAllItems } from "../ApiServices/ItemService.js";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 export const ContextApi = createContext(null);
 
 export const ContextApiProvider = (props) => {
 	const [categories, setCategories] = useState([]);
 	const [itemsList, setItemsList] = useState([]);
 	const [cartItems, setCartItems] = useState([]);
+	const navigate = useNavigate();
 	const [authenticated, setAuthenticated] = useState({
-		token: localStorage.getItem("token") || null,
-		role: localStorage.getItem("role") || null,
+		token: Cookies.get("token") || null,
+		role: Cookies.get("role") || null,
+		loggedUserId: Cookies.get("userId") || null,
 	});
 
 	const addToCart = (item) => {
@@ -57,18 +61,27 @@ export const ContextApiProvider = (props) => {
 
 	useEffect(() => {
 		async function loadData() {
-			const response = await getAllCategories();
-			const itemsResponse = await getAllItems();
-			setCategories(response.data);
-			setItemsList(itemsResponse.data);
+			try {
+				const response = await getAllCategories();
+				const itemsResponse = await getAllItems();
+				setCategories(response.data);
+				setItemsList(itemsResponse.data);
+			} catch (err) {
+				console.error(err);
+				Cookies.remove("token");
+				Cookies.remove("role");
+				Cookies.remove("loggedUserId");
+				setAuthenticated({ token: null, role: null, loggedUserId: null });
+				navigate("/login");
+			}
 		}
 		if (authenticated.token && authenticated.role) {
 			loadData();
 		}
-	}, [authenticated]);
+	}, [authenticated.token, authenticated.role]);
 
-	const setAuthData = (token, role) => {
-		setAuthenticated({ token, role });
+	const setAuthData = (token, role, loggedUserId) => {
+		setAuthenticated({ token, role, loggedUserId });
 	};
 
 	const contextValue = {

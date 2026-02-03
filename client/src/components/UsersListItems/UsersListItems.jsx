@@ -1,9 +1,11 @@
 import toast from "react-hot-toast";
 import { deleteUser } from "../../ApiServices/UserService";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ContextApi } from "../../ContextApi/ContextApi";
 
 const UsersListItems = ({ users, setUsers }) => {
 	const [searchTerm, setSearchTerm] = useState("");
+	const { authenticated } = useContext(ContextApi);
 
 	const filteredUsers = users.filter((user) =>
 		user.name.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -58,6 +60,7 @@ const UsersListItems = ({ users, setUsers }) => {
 									<button
 										className="btn btn-danger btn-sm"
 										onClick={() => deleteByUserId(user.userId)}
+										disabled={user.userId === authenticated.loggedUserId}
 									>
 										<i className="bi bi-trash"></i>
 									</button>

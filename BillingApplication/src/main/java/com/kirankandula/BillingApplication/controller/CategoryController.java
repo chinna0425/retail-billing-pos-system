@@ -23,6 +23,7 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.addCategory(request, image));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/categories/all-categories")
     public ResponseEntity<?> fetchCategories(){
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.fetchCategories());
