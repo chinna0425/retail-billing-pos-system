@@ -120,15 +120,6 @@ const MenuBar = () => {
 							aria-labelledby="navbarDropdown"
 						>
 							<li>
-								<a href="#" className="dropdown-item">
-									Settings
-								</a>
-								<a href="#" className="dropdown-item">
-									Ativity log
-								</a>
-								<div>
-									<hr className="dropdown-divider" />
-								</div>
 								<a href="#" className="dropdown-item" onClick={logout}>
 									Logout
 								</a>

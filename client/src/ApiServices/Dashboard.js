@@ -1,10 +1,8 @@
-import axios from "axios";
 import Cookies from "js-cookie";
-
-axios.defaults.baseURL = "http://localhost:8080/api/v1.0";
+import API from "./api";
 
 export const fetchDashboardData = async () => {
-	return await axios.get("/dashboard", {
+	return await API.get("/dashboard", {
 		headers: {
 			Authorization: `Bearer ${Cookies.get("token")}`,
 		},
