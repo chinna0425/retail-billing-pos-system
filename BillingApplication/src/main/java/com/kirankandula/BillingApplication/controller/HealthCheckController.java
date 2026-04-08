@@ -5,6 +5,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HealthCheckController {
+    @GetMapping("/")
+    public String home() {
+        return "alive";
+    }
+
     @GetMapping("/ping")
     public String ping() {
         return "alive";
