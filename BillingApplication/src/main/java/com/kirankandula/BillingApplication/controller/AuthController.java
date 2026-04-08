@@ -33,6 +33,10 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserEntityRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(authService.registerUser(request));
     }
+    @GetMapping("/auth/ping")
+    public String ping() {
+        return "alive";
+    }
 
     @PostMapping("/auth/login")
     public ResponseEntity<?> login(@Valid @RequestBody AuthRequest request) throws InvalidCredentialsException {
