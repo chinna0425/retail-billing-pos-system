@@ -55,7 +55,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,JwtAuthenticationEntryPoint entryPoint,JwtAccessDeniedHandler accessDeniedHandler) throws Exception {
         httpSecurity.csrf(customizer->customizer.disable())
                 .cors(Customizer.withDefaults())
-                .authorizeHttpRequests(auth->auth.requestMatchers("/auth/login","/auth/ping","/encode").permitAll()
+                .authorizeHttpRequests(auth->auth.requestMatchers("/auth/login","/ping","/encode").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex-> ex.authenticationEntryPoint(entryPoint)
