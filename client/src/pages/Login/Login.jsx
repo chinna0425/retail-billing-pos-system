@@ -45,10 +45,10 @@ const Login = () => {
 					expires: 1 / 24, // 1 hour = 0.0416 days
 				});
 				Cookies.set("role", response.data.role, {
-					expires: 1 / 24, // 1 hour = 0.0416 days
+					expires: 1 / 24,
 				});
 				Cookies.set("loggedUserId", response.data.userId, {
-					expires: 1 / 24, // 1 hour = 0.0416 days
+					expires: 1 / 24,
 				});
 
 				// Redirect to dashboard or another page
@@ -112,7 +112,7 @@ const Login = () => {
 									name="email"
 									className="form-control"
 									id="email"
-									placeholder="yourname@gmail.com"
+									placeholder="chinna25@gmail.com"
 								/>
 							</div>
 							<div className="mb-4">
@@ -128,7 +128,7 @@ const Login = () => {
 									name="password"
 									className="form-control"
 									id="password"
-									placeholder="*********"
+									placeholder="chinna25"
 								/>
 							</div>
 							<div className="d-grid">
